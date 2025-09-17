@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Data files (large files)
+*.csv
+!**/chapter01/1-1.csv  # 예외: 샘플 데이터는 포함
+!chapter02/data/*.csv  # 예외: chapter02 데이터는 포함
+*.xlsx
+*.h5
+*.pkl
+*.npy
+*.npz
+
+# Model files
+*.h5
+*.pt
+*.pth
+*.onnx
+*.pb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Output
+output/
+results/
+figures/
+*.png
+!**/chapter01/1-1.png  # 예외: 샘플 이미지는 포함
+!**/chapter02/*.png    # 예외: chapter02 이미지는 포함
+*.jpg
+*.jpeg
+*.gif
+*.pdf
+
+# Environment
+.env
+.env.local
+
+# Temporary
+tmp/
+temp/
+cache/
