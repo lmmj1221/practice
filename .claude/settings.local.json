@@ -3,7 +3,12 @@
     "allow": [
       "Bash(python:*)",
       "Bash(./venv/Scripts/activate)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(python3:*)",
+      "Bash(source:*)",
+      "Bash(chmod:*)",
+      "Bash(pip3 install:*)",
+      "Bash(timeout 60 python analysis.py)"
     ],
     "deny": [],
     "ask": []
