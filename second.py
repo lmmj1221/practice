@@ -35,7 +35,7 @@ plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
 # Create output directory if not exists
-os.makedirs('../output', exist_ok=True)
+os.makedirs(os.path.join('..', 'output'), exist_ok=True)
 
 def load_korea_electricity_data():
     """
@@ -47,15 +47,15 @@ def load_korea_electricity_data():
 
     try:
         # Load energy demand data
-        demand_df = pd.read_csv('../data/chapter3_energy_demand.csv')
+        demand_df = pd.read_csv(os.path.join('..', 'data', 'chapter3_energy_demand.csv'))
         demand_df['timestamp'] = pd.to_datetime(demand_df['timestamp'])
 
         # Load renewable policy data
-        policy_df = pd.read_csv('../data/chapter3_renewable_policy.csv')
+        policy_df = pd.read_csv(os.path.join('..', 'data', 'chapter3_renewable_policy.csv'))
         policy_df['date'] = pd.to_datetime(policy_df['date'])
 
         # Load market data
-        market_df = pd.read_csv('../data/chapter3_korea_electricity_market.csv')
+        market_df = pd.read_csv(os.path.join('..', 'data', 'chapter3_korea_electricity_market.csv'))
         market_df['date'] = pd.to_datetime(market_df['date'])
 
         print(f"✅ 에너지 수요 데이터: {demand_df.shape[0]:,} 시간별 레코드")
@@ -143,7 +143,7 @@ def analyze_demand_patterns(demand_df):
     axes[1, 1].grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('../output/demand_patterns.png', dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join('..', 'output', 'demand_patterns.png'), dpi=150, bbox_inches='tight')
     plt.show()
 
     return seasonal_demand, hourly_demand
@@ -222,7 +222,7 @@ def analyze_renewable_generation(demand_df):
     axes[1, 1].grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('../output/renewable_generation.png', dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join('..', 'output', 'renewable_generation.png'), dpi=150, bbox_inches='tight')
     plt.show()
 
 def analyze_policy_impact(policy_df, demand_df):
@@ -280,7 +280,7 @@ def analyze_policy_impact(policy_df, demand_df):
     axes[1, 1].grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('../output/policy_impact.png', dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join('..', 'output', 'policy_impact.png'), dpi=150, bbox_inches='tight')
     plt.show()
 
     # 정책 개입 시점 분석
@@ -358,7 +358,7 @@ def analyze_market_structure(market_df):
     axes[1, 1].grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('../output/market_structure.png', dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join('..', 'output', 'market_structure.png'), dpi=150, bbox_inches='tight')
     plt.show()
 
     # SMP와 발전원별 상관관계
@@ -470,7 +470,7 @@ def create_summary_report(demand_df, policy_df, market_df):
 
     plt.suptitle('2024년 한국 전력시장 종합 대시보드', fontsize=16, y=1.02)
     plt.tight_layout()
-    plt.savefig('../output/summary_dashboard.png', dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join('..', 'output', 'summary_dashboard.png'), dpi=150, bbox_inches='tight')
     plt.show()
 
     print("\n✅ 분석 완료! 결과는 output 폴더에 저장되었습니다.")
