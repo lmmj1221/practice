@@ -94,16 +94,22 @@ def extract_nouns(text):
 def load_and_explore_data():
     """민원 데이터 로드 및 탐색적 분석"""
     print("📁 민원 데이터 로딩 중...")
-    df = pd.read_csv('complaints_data.csv')
-    
-    # 한국어 민원만 필터링
-    korean_df = df[df['language'] == 'ko'].copy()
-    
-    print(f"✅ 총 {len(korean_df)}건의 한국어 민원 데이터 로드 완료")
+    df = pd.read_csv('data/complaints_cleaned.csv')
+
+    # 컬럼명 매핑
+    df = df.rename(columns={
+        '제목': 'title',
+        '내용': 'text',
+        '카테고리': 'category',
+        '접수일시': 'date',
+        'processed_content': 'processed'
+    })
+
+    print(f"✅ 총 {len(df)}건의 민원 데이터 로드 완료")
     print(f"📊 카테고리 분포:")
-    print(korean_df['category'].value_counts())
-    
-    return korean_df
+    print(df['category'].value_counts())
+
+    return df
 
 def clean_text(text):
     """텍스트 전처리 함수"""
@@ -127,19 +133,49 @@ def clean_text(text):
 def preprocess_data(df):
     """데이터 전처리"""
     print("🧹 텍스트 전처리 중...")
-    
+
     # 텍스트 정리
     df['cleaned_text'] = df['text'].apply(clean_text)
-    
+
     # 빈 텍스트 제거
     df = df[df['cleaned_text'].str.len() > 0].copy()
-    
+
     # 텍스트 길이 분석
     df['text_length'] = df['cleaned_text'].str.len()
-    
+
+    # 감성 분석 (간단한 버전)
+    def simple_sentiment(text):
+        negative_words = ['불편', '문제', '위험', '불만', '어렵', '힘들', '부족', '나쁘', '못']
+        positive_words = ['좋', '감사', '만족', '훌륭', '개선']
+
+        neg_count = sum(1 for word in negative_words if word in text)
+        pos_count = sum(1 for word in positive_words if word in text)
+
+        if neg_count > pos_count:
+            return '부정적'
+        elif pos_count > neg_count:
+            return '긍정적'
+        else:
+            return '중립적'
+
+    df['sentiment'] = df['cleaned_text'].apply(simple_sentiment)
+
+    # 처리 상태 생성 (시뮬레이션)
+    def assign_status(row):
+        """민원 처리 상태를 시뮬레이션"""
+        # 부정적 감성이 강할수록 처리중일 가능성 높음
+        if row['sentiment'] == '부정적':
+            return np.random.choice(['처리중', '접수완료', '처리완료'], p=[0.5, 0.3, 0.2])
+        elif row['sentiment'] == '중립적':
+            return np.random.choice(['처리중', '접수완료', '처리완료'], p=[0.3, 0.4, 0.3])
+        else:  # 긍정적
+            return np.random.choice(['처리중', '접수완료', '처리완료'], p=[0.2, 0.3, 0.5])
+
+    df['status'] = df.apply(assign_status, axis=1)
+
     print(f"✅ 전처리 완료. 최종 데이터: {len(df)}건")
     print(f"📏 평균 텍스트 길이: {df['text_length'].mean():.1f}자")
-    
+
     return df
 
 def classify_complaint_simple(text):

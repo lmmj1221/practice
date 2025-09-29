@@ -108,15 +108,18 @@ class BERTopicSimulator:
         self.topics = {}
         
     def preprocess_text(self, text):
-        """텍스트 전처리"""
+        """텍스트 전처리 - 명사만 추출"""
         if pd.isna(text):
             return ""
-        
+
         # 불필요한 문자 제거
         text = re.sub(r'[^\w\s가-힣]', ' ', text)
         text = ' '.join(text.split())
-        
-        return text
+
+        # 명사만 추출
+        nouns = extract_nouns(text)
+
+        return ' '.join(nouns) if nouns else ""
     
     def extract_topics(self, documents):
         """BERTopic 스타일 토픽 추출"""
