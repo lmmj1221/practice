@@ -8,7 +8,11 @@
       "Bash(source:*)",
       "Bash(chmod:*)",
       "Bash(pip3 install:*)",
-      "Bash(timeout 60 python analysis.py)"
+      "Bash(timeout 60 python analysis.py)",
+      "Bash(dir output)",
+      "Bash(venv\\Scripts\\python.exe -m pip install:*)",
+      "Bash(venv/Scripts/python.exe -m pip install:*)",
+      "Bash(venv/Scripts/python.exe:*)"
     ],
     "deny": [],
     "ask": []
