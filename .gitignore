@@ -27,15 +27,6 @@ wheels/
 .ipynb_checkpoints
 *.ipynb_checkpoints/
 
-# Data files (large files)
-*.csv
-!**/chapter01/1-1.csv  # 예외: 샘플 데이터는 포함
-!chapter02/data/*.csv  # 예외: chapter02 데이터는 포함
-*.xlsx
-*.h5
-*.pkl
-*.npy
-*.npz
 
 # Model files
 *.h5
