@@ -53,8 +53,8 @@ class EnsembleModelImplementation:
 
         # 정책 관련 특성 생성
         feature_names = [
-            '경제성장률', '실업률', '인플레이션율', '정부지출비율',
-            '인구밀도', '교육지수', '인프라지수', '기술혁신지수'
+            'GDP Growth', 'Unemployment', 'Inflation', 'Gov Spending',
+            'Population Density', 'Education Index', 'Infrastructure', 'Tech Innovation'
         ]
 
         # 다양한 분포에서 특성 생성
@@ -369,7 +369,7 @@ class EnsembleModelImplementation:
             values = [results[model][metric] for model in models]
 
             bars = axes[i].bar(models, values, alpha=0.7, color=plt.cm.Set3(np.arange(len(models))))
-            axes[i].set_title(f'{metric} 성능 비교')
+            axes[i].set_title(f'{metric} Performance Comparison')
             axes[i].set_ylabel(metric)
             axes[i].tick_params(axis='x', rotation=45)
 
@@ -381,7 +381,7 @@ class EnsembleModelImplementation:
 
         plt.tight_layout()
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        plt.show()
+        plt.close()
 
         print(f"📈 성능 비교 차트 저장: {save_path}")
 
@@ -405,14 +405,14 @@ class EnsembleModelImplementation:
 
             axes[i].scatter(y_test, predictions, alpha=0.6, s=30)
             axes[i].plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
-            axes[i].set_xlabel('실제 값')
-            axes[i].set_ylabel('예측 값')
+            axes[i].set_xlabel('Actual Values')
+            axes[i].set_ylabel('Predicted Values')
             axes[i].set_title(f'{model_name} (R² = {r2:.3f})')
             axes[i].grid(True, alpha=0.3)
 
         plt.tight_layout()
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        plt.show()
+        plt.close()
 
         print(f"📈 예측 비교 차트 저장: {save_path}")
 
@@ -463,12 +463,12 @@ class EnsembleModelImplementation:
             values = [values[i] for i in sorted_idx]
 
             axes[i].barh(features, values, alpha=0.7)
-            axes[i].set_title(f'{model_name} 특성 중요도')
-            axes[i].set_xlabel('중요도')
+            axes[i].set_title(f'{model_name} Feature Importance')
+            axes[i].set_xlabel('Importance')
 
         plt.tight_layout()
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        plt.show()
+        plt.close()
 
         print(f"📈 특성 중요도 차트 저장: {save_path}")
 

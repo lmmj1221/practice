@@ -16,8 +16,8 @@ import pandas as pd
 import json
 from collections import defaultdict
 
-# 한글 폰트 설정
-plt.rcParams['font.family'] = 'Arial Unicode MS'
+# 폰트 설정
+plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['figure.figsize'] = (12, 8)
 plt.rcParams['axes.unicode_minus'] = False
 
@@ -271,20 +271,20 @@ def visualize_network(G, save_path=None):
 
     nx.draw_networkx_labels(G, pos, labels, font_size=8, font_weight='bold')
 
-    plt.title('한국 정부 부처 간 협업 네트워크\n(노드 크기: 예산 규모, 엣지 두께: 협업 강도)',
+    plt.title('Korean Government Ministry Collaboration Network\n(Node size: Budget scale, Edge width: Collaboration intensity)',
               fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
 
     # 범례 추가
     legend_elements = [
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#FF6B6B',
-                   markersize=10, label='경제 부처'),
+                   markersize=10, label='Economic'),
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#45B7D1',
-                   markersize=10, label='기술 부처'),
+                   markersize=10, label='Technology'),
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#96CEB4',
-                   markersize=10, label='복지 부처'),
+                   markersize=10, label='Welfare'),
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#D3D3D3',
-                   markersize=10, label='기타 부처')
+                   markersize=10, label='Others')
     ]
     plt.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
 
@@ -294,7 +294,7 @@ def visualize_network(G, save_path=None):
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         print(f"네트워크 시각화 저장: {save_path}")
 
-    plt.show()
+    plt.close()
 
 def export_network_data(G, base_path):
     """
@@ -380,10 +380,10 @@ def main():
     print(f"• 클러스터링 계수: {network_props['structure']['clustering_coefficient']:.3f}")
 
     # 네트워크 시각화
-    visualize_network(gov_network, 'practice/chapter06/outputs/government_network.png')
+    visualize_network(gov_network, '../outputs/government_network.png')
 
     # 데이터 내보내기
-    export_network_data(gov_network, 'practice/chapter06/data')
+    export_network_data(gov_network, '../data')
 
     print("\n분석 완료! 모든 결과가 practice/chapter06/ 디렉토리에 저장되었습니다.")
 

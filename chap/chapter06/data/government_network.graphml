@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d6" for="edge" attr.name="projects" attr.type="long" />
+  <key id="d5" for="edge" attr.name="type" attr.type="string" />
+  <key id="d4" for="edge" attr.name="weight" attr.type="double" />
+  <key id="d3" for="node" attr.name="staff_size" attr.type="long" />
+  <key id="d2" for="node" attr.name="budget_scale" attr.type="double" />
+  <key id="d1" for="node" attr.name="establishment_year" attr.type="long" />
+  <key id="d0" for="node" attr.name="node_type" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="기획재정부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">1.0</data>
+      <data key="d3">2500</data>
+    </node>
+    <node id="교육부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.8</data>
+      <data key="d3">2000</data>
+    </node>
+    <node id="과학기술정보통신부">
+      <data key="d0">ministry</data>
+      <data key="d1">2017</data>
+      <data key="d2">0.7</data>
+      <data key="d3">1800</data>
+    </node>
+    <node id="외교부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.3</data>
+      <data key="d3">1200</data>
+    </node>
+    <node id="통일부">
+      <data key="d0">ministry</data>
+      <data key="d1">1969</data>
+      <data key="d2">0.2</data>
+      <data key="d3">800</data>
+    </node>
+    <node id="법무부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.4</data>
+      <data key="d3">1500</data>
+    </node>
+    <node id="국방부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.9</data>
+      <data key="d3">3000</data>
+    </node>
+    <node id="행정안전부">
+      <data key="d0">ministry</data>
+      <data key="d1">2008</data>
+      <data key="d2">0.6</data>
+      <data key="d3">1600</data>
+    </node>
+    <node id="문화체육관광부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.3</data>
+      <data key="d3">1000</data>
+    </node>
+    <node id="농림축산식품부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.5</data>
+      <data key="d3">1400</data>
+    </node>
+    <node id="산업통상자원부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.6</data>
+      <data key="d3">1700</data>
+    </node>
+    <node id="보건복지부">
+      <data key="d0">ministry</data>
+      <data key="d1">1948</data>
+      <data key="d2">0.8</data>
+      <data key="d3">2200</data>
+    </node>
+    <node id="환경부">
+      <data key="d0">ministry</data>
+      <data key="d1">1994</data>
+      <data key="d2">0.4</data>
+      <data key="d3">1100</data>
+    </node>
+    <node id="고용노동부">
+      <data key="d0">ministry</data>
+      <data key="d1">1981</data>
+      <data key="d2">0.5</data>
+      <data key="d3">1300</data>
+    </node>
+    <node id="여성가족부">
+      <data key="d0">ministry</data>
+      <data key="d1">2001</data>
+      <data key="d2">0.2</data>
+      <data key="d3">600</data>
+    </node>
+    <node id="국토교통부">
+      <data key="d0">ministry</data>
+      <data key="d1">2013</data>
+      <data key="d2">0.7</data>
+      <data key="d3">1900</data>
+    </node>
+    <node id="해양수산부">
+      <data key="d0">ministry</data>
+      <data key="d1">2013</data>
+      <data key="d2">0.3</data>
+      <data key="d3">900</data>
+    </node>
+    <node id="중소벤처기업부">
+      <data key="d0">ministry</data>
+      <data key="d1">2017</data>
+      <data key="d2">0.4</data>
+      <data key="d3">1000</data>
+    </node>
+    <node id="국가보훈부">
+      <data key="d0">ministry</data>
+      <data key="d1">2000</data>
+      <data key="d2">0.3</data>
+      <data key="d3">1000</data>
+    </node>
+    <edge source="기획재정부" target="과학기술정보통신부">
+      <data key="d4">0.9</data>
+      <data key="d5">AI_budget</data>
+      <data key="d6">15</data>
+    </edge>
+    <edge source="기획재정부" target="산업통상자원부">
+      <data key="d4">0.8</data>
+      <data key="d5">economic_policy</data>
+      <data key="d6">20</data>
+    </edge>
+    <edge source="기획재정부" target="중소벤처기업부">
+      <data key="d4">0.6</data>
+      <data key="d5">startup_support</data>
+      <data key="d6">8</data>
+    </edge>
+    <edge source="기획재정부" target="고용노동부">
+      <data key="d4">0.5</data>
+      <data key="d5">employment_policy</data>
+      <data key="d6">7</data>
+    </edge>
+    <edge source="교육부" target="고용노동부">
+      <data key="d4">0.6</data>
+      <data key="d5">workforce_development</data>
+      <data key="d6">9</data>
+    </edge>
+    <edge source="과학기술정보통신부" target="교육부">
+      <data key="d4">0.7</data>
+      <data key="d5">digital_education</data>
+      <data key="d6">12</data>
+    </edge>
+    <edge source="과학기술정보통신부" target="행정안전부">
+      <data key="d4">0.9</data>
+      <data key="d5">digital_government</data>
+      <data key="d6">18</data>
+    </edge>
+    <edge source="과학기술정보통신부" target="산업통상자원부">
+      <data key="d4">0.6</data>
+      <data key="d5">digital_industry</data>
+      <data key="d6">8</data>
+    </edge>
+    <edge source="과학기술정보통신부" target="보건복지부">
+      <data key="d4">0.8</data>
+      <data key="d5">health_AI</data>
+      <data key="d6">10</data>
+    </edge>
+    <edge source="과학기술정보통신부" target="국토교통부">
+      <data key="d4">0.7</data>
+      <data key="d5">smart_city</data>
+      <data key="d6">9</data>
+    </edge>
+    <edge source="외교부" target="통일부">
+      <data key="d4">0.8</data>
+      <data key="d5">foreign_policy</data>
+      <data key="d6">12</data>
+    </edge>
+    <edge source="외교부" target="국방부">
+      <data key="d4">0.7</data>
+      <data key="d5">defense_diplomacy</data>
+      <data key="d6">8</data>
+    </edge>
+    <edge source="통일부" target="행정안전부">
+      <data key="d4">0.4</data>
+      <data key="d5">unification_admin</data>
+      <data key="d6">3</data>
+    </edge>
+    <edge source="행정안전부" target="기획재정부">
+      <data key="d4">0.6</data>
+      <data key="d5">government_operation</data>
+      <data key="d6">10</data>
+    </edge>
+    <edge source="행정안전부" target="법무부">
+      <data key="d4">0.5</data>
+      <data key="d5">legal_administration</data>
+      <data key="d6">7</data>
+    </edge>
+    <edge source="문화체육관광부" target="과학기술정보통신부">
+      <data key="d4">0.4</data>
+      <data key="d5">digital_culture</data>
+      <data key="d6">5</data>
+    </edge>
+    <edge source="문화체육관광부" target="교육부">
+      <data key="d4">0.5</data>
+      <data key="d5">cultural_education</data>
+      <data key="d6">6</data>
+    </edge>
+    <edge source="산업통상자원부" target="중소벤처기업부">
+      <data key="d4">0.7</data>
+      <data key="d5">industry_support</data>
+      <data key="d6">11</data>
+    </edge>
+    <edge source="보건복지부" target="고용노동부">
+      <data key="d4">0.7</data>
+      <data key="d5">social_safety</data>
+      <data key="d6">13</data>
+    </edge>
+    <edge source="보건복지부" target="여성가족부">
+      <data key="d4">0.8</data>
+      <data key="d5">family_welfare</data>
+      <data key="d6">11</data>
+    </edge>
+    <edge source="환경부" target="산업통상자원부">
+      <data key="d4">0.5</data>
+      <data key="d5">green_transition</data>
+      <data key="d6">14</data>
+    </edge>
+    <edge source="환경부" target="국토교통부">
+      <data key="d4">0.6</data>
+      <data key="d5">green_transport</data>
+      <data key="d6">10</data>
+    </edge>
+    <edge source="환경부" target="농림축산식품부">
+      <data key="d4">0.6</data>
+      <data key="d5">sustainable_agriculture</data>
+      <data key="d6">7</data>
+    </edge>
+    <edge source="고용노동부" target="여성가족부">
+      <data key="d4">0.6</data>
+      <data key="d5">gender_employment</data>
+      <data key="d6">6</data>
+    </edge>
+    <edge source="해양수산부" target="환경부">
+      <data key="d4">0.5</data>
+      <data key="d5">marine_environment</data>
+      <data key="d6">6</data>
+    </edge>
+    <edge source="해양수산부" target="외교부">
+      <data key="d4">0.4</data>
+      <data key="d5">maritime_diplomacy</data>
+      <data key="d6">4</data>
+    </edge>
+  </graph>
+</graphml>

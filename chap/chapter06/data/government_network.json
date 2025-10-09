@@ -1,0 +1,324 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 1.0,
+      "staff_size": 2500,
+      "id": "기획재정부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.8,
+      "staff_size": 2000,
+      "id": "교육부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 2017,
+      "budget_scale": 0.7,
+      "staff_size": 1800,
+      "id": "과학기술정보통신부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.3,
+      "staff_size": 1200,
+      "id": "외교부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1969,
+      "budget_scale": 0.2,
+      "staff_size": 800,
+      "id": "통일부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.4,
+      "staff_size": 1500,
+      "id": "법무부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.9,
+      "staff_size": 3000,
+      "id": "국방부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 2008,
+      "budget_scale": 0.6,
+      "staff_size": 1600,
+      "id": "행정안전부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.3,
+      "staff_size": 1000,
+      "id": "문화체육관광부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.5,
+      "staff_size": 1400,
+      "id": "농림축산식품부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.6,
+      "staff_size": 1700,
+      "id": "산업통상자원부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1948,
+      "budget_scale": 0.8,
+      "staff_size": 2200,
+      "id": "보건복지부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1994,
+      "budget_scale": 0.4,
+      "staff_size": 1100,
+      "id": "환경부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 1981,
+      "budget_scale": 0.5,
+      "staff_size": 1300,
+      "id": "고용노동부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 2001,
+      "budget_scale": 0.2,
+      "staff_size": 600,
+      "id": "여성가족부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 2013,
+      "budget_scale": 0.7,
+      "staff_size": 1900,
+      "id": "국토교통부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 2013,
+      "budget_scale": 0.3,
+      "staff_size": 900,
+      "id": "해양수산부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 2017,
+      "budget_scale": 0.4,
+      "staff_size": 1000,
+      "id": "중소벤처기업부"
+    },
+    {
+      "node_type": "ministry",
+      "establishment_year": 2000,
+      "budget_scale": 0.3,
+      "staff_size": 1000,
+      "id": "국가보훈부"
+    }
+  ],
+  "links": [
+    {
+      "weight": 0.9,
+      "type": "AI_budget",
+      "projects": 15,
+      "source": "기획재정부",
+      "target": "과학기술정보통신부"
+    },
+    {
+      "weight": 0.8,
+      "type": "economic_policy",
+      "projects": 20,
+      "source": "기획재정부",
+      "target": "산업통상자원부"
+    },
+    {
+      "weight": 0.6,
+      "type": "startup_support",
+      "projects": 8,
+      "source": "기획재정부",
+      "target": "중소벤처기업부"
+    },
+    {
+      "weight": 0.5,
+      "type": "employment_policy",
+      "projects": 7,
+      "source": "기획재정부",
+      "target": "고용노동부"
+    },
+    {
+      "weight": 0.6,
+      "type": "workforce_development",
+      "projects": 9,
+      "source": "교육부",
+      "target": "고용노동부"
+    },
+    {
+      "weight": 0.7,
+      "type": "digital_education",
+      "projects": 12,
+      "source": "과학기술정보통신부",
+      "target": "교육부"
+    },
+    {
+      "weight": 0.9,
+      "type": "digital_government",
+      "projects": 18,
+      "source": "과학기술정보통신부",
+      "target": "행정안전부"
+    },
+    {
+      "weight": 0.6,
+      "type": "digital_industry",
+      "projects": 8,
+      "source": "과학기술정보통신부",
+      "target": "산업통상자원부"
+    },
+    {
+      "weight": 0.8,
+      "type": "health_AI",
+      "projects": 10,
+      "source": "과학기술정보통신부",
+      "target": "보건복지부"
+    },
+    {
+      "weight": 0.7,
+      "type": "smart_city",
+      "projects": 9,
+      "source": "과학기술정보통신부",
+      "target": "국토교통부"
+    },
+    {
+      "weight": 0.8,
+      "type": "foreign_policy",
+      "projects": 12,
+      "source": "외교부",
+      "target": "통일부"
+    },
+    {
+      "weight": 0.7,
+      "type": "defense_diplomacy",
+      "projects": 8,
+      "source": "외교부",
+      "target": "국방부"
+    },
+    {
+      "weight": 0.4,
+      "type": "unification_admin",
+      "projects": 3,
+      "source": "통일부",
+      "target": "행정안전부"
+    },
+    {
+      "weight": 0.6,
+      "type": "government_operation",
+      "projects": 10,
+      "source": "행정안전부",
+      "target": "기획재정부"
+    },
+    {
+      "weight": 0.5,
+      "type": "legal_administration",
+      "projects": 7,
+      "source": "행정안전부",
+      "target": "법무부"
+    },
+    {
+      "weight": 0.4,
+      "type": "digital_culture",
+      "projects": 5,
+      "source": "문화체육관광부",
+      "target": "과학기술정보통신부"
+    },
+    {
+      "weight": 0.5,
+      "type": "cultural_education",
+      "projects": 6,
+      "source": "문화체육관광부",
+      "target": "교육부"
+    },
+    {
+      "weight": 0.7,
+      "type": "industry_support",
+      "projects": 11,
+      "source": "산업통상자원부",
+      "target": "중소벤처기업부"
+    },
+    {
+      "weight": 0.7,
+      "type": "social_safety",
+      "projects": 13,
+      "source": "보건복지부",
+      "target": "고용노동부"
+    },
+    {
+      "weight": 0.8,
+      "type": "family_welfare",
+      "projects": 11,
+      "source": "보건복지부",
+      "target": "여성가족부"
+    },
+    {
+      "weight": 0.5,
+      "type": "green_transition",
+      "projects": 14,
+      "source": "환경부",
+      "target": "산업통상자원부"
+    },
+    {
+      "weight": 0.6,
+      "type": "green_transport",
+      "projects": 10,
+      "source": "환경부",
+      "target": "국토교통부"
+    },
+    {
+      "weight": 0.6,
+      "type": "sustainable_agriculture",
+      "projects": 7,
+      "source": "환경부",
+      "target": "농림축산식품부"
+    },
+    {
+      "weight": 0.6,
+      "type": "gender_employment",
+      "projects": 6,
+      "source": "고용노동부",
+      "target": "여성가족부"
+    },
+    {
+      "weight": 0.5,
+      "type": "marine_environment",
+      "projects": 6,
+      "source": "해양수산부",
+      "target": "환경부"
+    },
+    {
+      "weight": 0.4,
+      "type": "maritime_diplomacy",
+      "projects": 4,
+      "source": "해양수산부",
+      "target": "외교부"
+    }
+  ]
+}
