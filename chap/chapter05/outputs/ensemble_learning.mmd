@@ -1,0 +1,19 @@
+
+graph LR
+    D[Training Data] --> B1[Bootstrap Sample 1]
+    D --> B2[Bootstrap Sample 2]
+    D --> B3[Bootstrap Sample 3]
+
+    B1 --> M1[Model 1]
+    B2 --> M2[Model 2]
+    B3 --> M3[Model 3]
+
+    M1 --> V[Voting/Averaging]
+    M2 --> V
+    M3 --> V
+
+    V --> P[Final Prediction]
+
+    style D fill:#3498db
+    style P fill:#2ecc71
+    style V fill:#f39c12

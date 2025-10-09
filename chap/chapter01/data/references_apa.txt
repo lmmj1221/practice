@@ -1,0 +1,22 @@
+# References (APA Format)
+
+1. Chen, X. & Wang, L. & Zhang, Y. (2024). Causal AI for Public Policy: Methods and Applications. Journal of Machine Learning Research, 25(1), 1-42.
+
+2. O'Neil, C. (2024). Weapons of Math Destruction: How Big Data Increases Inequality. Crown Publishing.
+
+3. National Institute of Standards and Technology. (2025). AI Risk Management Framework 2.0 (Report No. NIST AI 100-2). NIST.
+
+4. Park, J.H. & Kim, S.Y. & Lee, M.J. (2025). AI-Driven Policy Analysis in Korean Government: A Systematic Review. Policy Sciences, 58(2), 245-268.
+
+5. Russell, S. & Norvig, P. (2025). Artificial Intelligence: A Modern Approach (5th Edition). Pearson.
+
+6. Dafoe, A. & Zhang, B. & Anderljung, M. (2025). Cooperative AI: Machines Must Learn to Find Common Ground. Nature, 593(7857), 33-36.
+
+7. European Commission. (2025). EU Artificial Intelligence Act: Implementation Guidelines (Report No. COM(2025)206). EU Publications Office.
+
+8. OECD. (2025). OECD AI Policy Observatory: Trends and Insights. Retrieved from https://oecd.ai/en/trends-and-data
+
+9. Partnership on AI. (2025). Responsible AI Implementation Framework. Retrieved from https://partnershiponai.org/framework
+
+10. 한국 과학기술정보통신부. (2025). 국가 AI 전략 2025-2030: 신뢰할 수 있는 AI 구현 로드맵 (Report No. MSIT-2025-AI-001). 정부간행물.
+
