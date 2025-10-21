@@ -18,9 +18,41 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # 한글 폰트 설정
-plt.rcParams['font.family'] = 'Arial Unicode MS'
-plt.rcParams['figure.figsize'] = (12, 8)
-plt.rcParams['axes.unicode_minus'] = False
+import matplotlib.font_manager as fm
+import os
+
+# 폰트 캐시 문제 해결을 위한 강제 설정
+def setup_korean_font():
+    """한글 폰트를 강제로 설정하는 함수"""
+    # 사용 가능한 한글 폰트 목록
+    korean_fonts = ['Malgun Gothic', 'Microsoft YaHei', 'SimHei', 'NanumGothic', 'AppleGothic']
+    
+    for font_name in korean_fonts:
+        try:
+            # 폰트가 시스템에 있는지 확인
+            font_files = [f.fname for f in fm.fontManager.ttflist if font_name in f.name]
+            if font_files:
+                plt.rcParams['font.family'] = font_name
+                print(f"한글 폰트 설정 성공: {font_name}")
+                break
+        except:
+            continue
+    else:
+        # 모든 한글 폰트가 실패하면 기본 설정
+        plt.rcParams['font.family'] = 'DejaVu Sans'
+        print("한글 폰트 설정 실패, 기본 폰트 사용")
+    
+    # 음수 기호 깨짐 방지
+    plt.rcParams['axes.unicode_minus'] = False
+    
+    # 그래프 크기 설정
+    plt.rcParams['figure.figsize'] = (12, 8)
+    
+    # 폰트 크기 설정
+    plt.rcParams['font.size'] = 10
+
+# 한글 폰트 설정 실행
+setup_korean_font()
 
 def calculate_all_centralities(G):
     """
@@ -261,6 +293,9 @@ def create_centrality_visualizations(df, correlation_matrix, save_path=None):
         save_path (str): 저장 경로
     """
     print("\n중심성 분석 시각화 생성 중...")
+    
+    # 한글 폰트 재설정 (시각화 직전)
+    setup_korean_font()
 
     # 1. 종합 영향력 점수 막대 그래프
     fig, axes = plt.subplots(2, 2, figsize=(20, 16))
@@ -314,15 +349,16 @@ def create_centrality_visualizations(df, correlation_matrix, save_path=None):
     ax4 = axes[1, 1]
 
     # 총 협업 프로젝트 수 계산
-    df['total_projects'] = df['total_in_projects'] + df['total_out_projects']
+    total_projects = df['total_in_projects'] + df['total_out_projects']
 
-    ax4.scatter(df['total_projects'], df['influence_score'],
+    ax4.scatter(total_projects, df['influence_score'],
                s=100, alpha=0.7, color='orange')
 
     # 상위 5개 부처 라벨링
     for _, row in top_5_influence.iterrows():
+        row_total_projects = row['total_in_projects'] + row['total_out_projects']
         ax4.annotate(row['ministry'].replace('부', '').replace('청', ''),
-                    (row['total_projects'], row['influence_score']),
+                    (row_total_projects, row['influence_score']),
                     xytext=(5, 5), textcoords='offset points', fontsize=9)
 
     ax4.set_xlabel('총 협업 프로젝트 수')
@@ -348,6 +384,9 @@ def create_radar_chart(df, save_path=None):
         save_path (str): 저장 경로
     """
     print("\n레이더 차트 생성 중...")
+    
+    # 한글 폰트 재설정 (시각화 직전)
+    setup_korean_font()
 
     # 상위 5개 영향력 부처 선택
     top_ministries = df.nlargest(5, 'influence_score')
@@ -496,12 +535,12 @@ def main():
 
     # 5. 시각화
     create_centrality_visualizations(centrality_df, correlation_matrix,
-                                   'practice/chapter06/outputs')
-    create_radar_chart(centrality_df, 'practice/chapter06/outputs')
+                                   '../outputs')
+    create_radar_chart(centrality_df, '../outputs')
 
     # 6. 결과 내보내기
     export_centrality_results(centrality_df, rankings, correlation_matrix,
-                             'practice/chapter06/data')
+                             '../data')
 
     print("\n중심성 분석 완료! 결과가 practice/chapter06/ 디렉토리에 저장되었습니다.")
 

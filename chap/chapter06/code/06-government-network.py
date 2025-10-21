@@ -16,10 +16,30 @@ import pandas as pd
 import json
 from collections import defaultdict
 
-# 폰트 설정
-plt.rcParams['font.family'] = 'Arial'
-plt.rcParams['figure.figsize'] = (12, 8)
-plt.rcParams['axes.unicode_minus'] = False
+# 한글 폰트 설정
+
+def setup_korean_font():
+    """한글 폰트를 강제로 설정하는 함수"""
+    korean_fonts = ['Malgun Gothic', 'Microsoft YaHei', 'SimHei', 'NanumGothic', 'AppleGothic']
+    
+    for font_name in korean_fonts:
+        try:
+            font_files = [f.fname for f in fm.fontManager.ttflist if font_name in f.name]
+            if font_files:
+                plt.rcParams['font.family'] = font_name
+                print(f"한글 폰트 설정 성공: {font_name}")
+                break
+        except:
+            continue
+    else:
+        plt.rcParams['font.family'] = 'DejaVu Sans'
+        print("한글 폰트 설정 실패, 기본 폰트 사용")
+    
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['figure.figsize'] = (12, 8)
+    plt.rcParams['font.size'] = 10
+
+setup_korean_font()
 
 def create_government_network():
     """
@@ -208,6 +228,9 @@ def visualize_network(G, save_path=None):
         save_path (str): 저장 경로 (선택사항)
     """
     print("\n네트워크 시각화 생성 중...")
+    
+    # 한글 폰트 재설정
+    setup_korean_font()
 
     plt.figure(figsize=(15, 10))
 
@@ -269,22 +292,23 @@ def visualize_network(G, save_path=None):
         else:
             labels[node] = node[:4]  # 처음 4글자만
 
-    nx.draw_networkx_labels(G, pos, labels, font_size=8, font_weight='bold')
+    nx.draw_networkx_labels(G, pos, labels, font_size=8, font_weight='bold',
+                           font_family='Malgun Gothic')
 
-    plt.title('Korean Government Ministry Collaboration Network\n(Node size: Budget scale, Edge width: Collaboration intensity)',
+    plt.title('한국 정부 부처 간 협업 네트워크\n(노드 크기: 예산 규모, 엣지 두께: 협업 강도)',
               fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
 
     # 범례 추가
     legend_elements = [
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#FF6B6B',
-                   markersize=10, label='Economic'),
+                   markersize=10, label='경제 부처'),
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#45B7D1',
-                   markersize=10, label='Technology'),
+                   markersize=10, label='기술 부처'),
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#96CEB4',
-                   markersize=10, label='Welfare'),
+                   markersize=10, label='복지 부처'),
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#D3D3D3',
-                   markersize=10, label='Others')
+                   markersize=10, label='기타 부처')
     ]
     plt.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
 
@@ -294,7 +318,7 @@ def visualize_network(G, save_path=None):
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         print(f"네트워크 시각화 저장: {save_path}")
 
-    plt.close()
+    plt.show()
 
 def export_network_data(G, base_path):
     """

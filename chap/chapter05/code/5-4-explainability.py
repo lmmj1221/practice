@@ -19,7 +19,14 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # 한글 폰트 설정
-plt.rcParams['font.family'] = 'Arial'
+import platform
+if platform.system() == 'Windows':
+    plt.rcParams['font.family'] = 'Malgun Gothic'
+elif platform.system() == 'Darwin':
+    plt.rcParams['font.family'] = 'AppleGothic'
+else:
+    plt.rcParams['font.family'] = 'NanumGothic'
+plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.size'] = 10
 
 class ExplainabilityImplementation:
@@ -287,7 +294,7 @@ class ExplainabilityImplementation:
         )
         plt.title('SHAP Summary Plot - 특성 중요도와 영향 방향')
         plt.tight_layout()
-        plt.savefig('practice/chapter05/outputs/shap_summary.png', dpi=300, bbox_inches='tight')
+        plt.savefig('c:/practice/chap/chapter05/outputs/shap_summary.png', dpi=300, bbox_inches='tight')
         plt.show()
 
         # 2. Feature Importance Bar Plot
@@ -301,7 +308,7 @@ class ExplainabilityImplementation:
         )
         plt.title('SHAP Feature Importance - 특성별 평균 절대 기여도')
         plt.tight_layout()
-        plt.savefig('practice/chapter05/outputs/shap_importance.png', dpi=300, bbox_inches='tight')
+        plt.savefig('c:/practice/chap/chapter05/outputs/shap_importance.png', dpi=300, bbox_inches='tight')
         plt.show()
 
         # 3. Waterfall Plot (첫 번째 샘플)
@@ -319,7 +326,7 @@ class ExplainabilityImplementation:
             )
             plt.title('SHAP Waterfall Plot - 개별 예측 설명')
             plt.tight_layout()
-            plt.savefig('practice/chapter05/outputs/shap_waterfall.png', dpi=300, bbox_inches='tight')
+            plt.savefig('c:/practice/chap/chapter05/outputs/shap_waterfall.png', dpi=300, bbox_inches='tight')
             plt.show()
 
         # 4. Dependence Plot (상위 2개 특성)
@@ -336,7 +343,7 @@ class ExplainabilityImplementation:
             )
 
         plt.tight_layout()
-        plt.savefig('practice/chapter05/outputs/shap_dependence.png', dpi=300, bbox_inches='tight')
+        plt.savefig('c:/practice/chap/chapter05/outputs/shap_dependence.png', dpi=300, bbox_inches='tight')
         plt.show()
 
         print("📊 SHAP 시각화 완료:")
@@ -404,13 +411,13 @@ class ExplainabilityImplementation:
             print(f"  {feature}: {importance:+.3f} ({direction})")
 
         # HTML 설명 저장
-        explanation.save_to_file('practice/chapter05/outputs/lime_explanation.html')
+        explanation.save_to_file('c:/practice/chap/chapter05/outputs/lime_explanation.html')
 
         # 시각화 생성
         fig = explanation.as_pyplot_figure()
         fig.suptitle(f'LIME 설명 - 인스턴스 {instance_idx}')
         plt.tight_layout()
-        plt.savefig('practice/chapter05/outputs/lime_explanation.png', dpi=300, bbox_inches='tight')
+        plt.savefig('c:/practice/chap/chapter05/outputs/lime_explanation.png', dpi=300, bbox_inches='tight')
         plt.show()
 
         print("📊 LIME 시각화 완료:")
@@ -505,7 +512,7 @@ class ExplainabilityImplementation:
         plt.grid(True, alpha=0.3)
 
         plt.tight_layout()
-        plt.savefig('practice/chapter05/outputs/shap_lime_comparison.png', dpi=300, bbox_inches='tight')
+        plt.savefig('c:/practice/chap/chapter05/outputs/shap_lime_comparison.png', dpi=300, bbox_inches='tight')
         plt.show()
 
         print("📈 비교 시각화 저장: practice/chapter05/outputs/shap_lime_comparison.png")

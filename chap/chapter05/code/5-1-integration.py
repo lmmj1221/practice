@@ -16,6 +16,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import os
+from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -66,13 +68,38 @@ class MLDLIntegrationPipeline:
              noise * np.random.randn(n_samples))
 
         # DataFrame으로 변환
-        feature_names = [f'정책변수_{i+1}' for i in range(n_features)]
+        feature_names = [f'Feature_{i+1}' for i in range(n_features)]
         X_df = pd.DataFrame(X, columns=feature_names)
 
         self.feature_names = feature_names
 
-        print(f"✅ 시뮬레이션 데이터 생성 완료: {n_samples}개 샘플, {n_features}개 특성")
+        print(f"✅ Simulation data generated: {n_samples} samples, {n_features} features")
         return X_df, y
+
+    def save_data(self, X, y, base_path='../data/'):
+        """
+        생성된 데이터를 통합 CSV 파일로 저장
+
+        Parameters:
+        X (DataFrame): 특성 데이터
+        y (array): 타겟 데이터
+        base_path (str): 저장할 기본 경로
+        """
+        # 저장 경로 확인 및 생성
+        if not os.path.exists(base_path):
+            os.makedirs(base_path)
+
+        # 타임스탬프 생성
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        # 특성과 타겟을 함께 저장 (통합 데이터)
+        data_combined = X.copy()
+        data_combined['Target'] = y
+        csv_path = os.path.join(base_path, f'integration_data_{timestamp}.csv')
+        data_combined.to_csv(csv_path, index=False, encoding='utf-8-sig')
+        print(f"📁 Integration data saved: {csv_path}")
+
+        print(f"\n✅ Data saved to {base_path} folder.")
 
     def preprocess_data(self, X, y):
         """
@@ -88,7 +115,7 @@ class MLDLIntegrationPipeline:
         # 결측값 처리
         if X.isnull().sum().sum() > 0:
             X_processed = X.fillna(X.median(numeric_only=True))
-            print("📋 결측값 중위수로 대체")
+            print("📋 Missing values filled with median")
         else:
             X_processed = X.copy()
 
@@ -97,7 +124,7 @@ class MLDLIntegrationPipeline:
         for col in categorical_cols:
             le = LabelEncoder()
             X_processed[col] = le.fit_transform(X_processed[col])
-            print(f"📋 {col} 범주형 변수 인코딩 완료")
+            print(f"📋 {col} categorical encoding completed")
 
         # 데이터 분할
         X_train, X_test, y_train, y_test = train_test_split(
@@ -112,9 +139,9 @@ class MLDLIntegrationPipeline:
         X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_processed.columns)
         X_test_scaled = pd.DataFrame(X_test_scaled, columns=X_processed.columns)
 
-        print("✅ 데이터 전처리 완료")
-        print(f"   - 학습 데이터: {X_train_scaled.shape}")
-        print(f"   - 테스트 데이터: {X_test_scaled.shape}")
+        print("✅ Data preprocessing completed")
+        print(f"   - Training data: {X_train_scaled.shape}")
+        print(f"   - Test data: {X_test_scaled.shape}")
 
         return X_train_scaled, X_test_scaled, y_train, y_test
 
@@ -139,7 +166,7 @@ class MLDLIntegrationPipeline:
         rf_model.fit(X_train, y_train)
         self.ml_models['random_forest'] = rf_model
 
-        print("✅ Random Forest 모델 학습 완료")
+        print("✅ Random Forest model training completed")
 
         return self.ml_models
 
@@ -171,8 +198,8 @@ class MLDLIntegrationPipeline:
 
         self.dl_model = model
 
-        print("✅ 딥러닝 모델 구축 완료")
-        print(f"   - 총 파라미터 수: {model.count_params():,}")
+        print("✅ Deep learning model built")
+        print(f"   - Total parameters: {model.count_params():,}")
 
         return model
 
@@ -206,7 +233,7 @@ class MLDLIntegrationPipeline:
             verbose=1
         )
 
-        print("✅ 딥러닝 모델 학습 완료")
+        print("✅ Deep learning model training completed")
 
         return history
 
@@ -218,14 +245,14 @@ class MLDLIntegrationPipeline:
         VotingRegressor: 앙상블 모델
         """
         if not self.ml_models or self.dl_model is None:
-            raise ValueError("먼저 개별 모델들을 학습해주세요")
+            raise ValueError("Please train individual models first")
 
         # ML 모델들을 위한 VotingRegressor
         ml_estimators = [(name, model) for name, model in self.ml_models.items()]
 
         self.ensemble_model = VotingRegressor(ml_estimators)
 
-        print("✅ 앙상블 모델 생성 완료")
+        print("✅ Ensemble model created")
 
         return self.ensemble_model
 
@@ -281,9 +308,49 @@ class MLDLIntegrationPipeline:
                 'R²': r2_score(y_test, ensemble_pred)
             }
 
-        print("📊 모든 모델 성능 평가 완료")
+        print("📊 All models evaluated")
 
         return results
+
+    def save_results(self, results, X_test, y_test, base_path='../data/'):
+        """
+        평가 결과를 데이터 폴더에 저장
+
+        Parameters:
+        results (dict): 평가 결과 딕셔너리
+        X_test (DataFrame): 테스트 데이터
+        y_test (array): 테스트 타겟 데이터
+        base_path (str): 저장할 기본 경로
+        """
+        if not os.path.exists(base_path):
+            os.makedirs(base_path)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        # 결과를 CSV로 저장
+        results_df = pd.DataFrame(results).T
+        csv_path = os.path.join(base_path, f'model_metrics_{timestamp}.csv')
+        results_df.to_csv(csv_path, encoding='utf-8-sig')
+        print(f"📁 Model metrics saved: {csv_path}")
+
+        # 예측 결과 저장
+        predictions_data = {'actual': y_test}
+
+        for name, model in self.ml_models.items():
+            predictions_data[f'pred_{name}'] = model.predict(X_test)
+
+        if self.dl_model is not None:
+            predictions_data['pred_deep_learning'] = self.dl_model.predict(X_test, verbose=0).flatten()
+
+        if self.ensemble_model is not None:
+            predictions_data['pred_ensemble'] = self.ensemble_model.predict(X_test)
+
+        predictions_df = pd.DataFrame(predictions_data)
+        pred_csv_path = os.path.join(base_path, f'predictions_{timestamp}.csv')
+        predictions_df.to_csv(pred_csv_path, index=False, encoding='utf-8-sig')
+        print(f"📁 Predictions saved: {pred_csv_path}")
+
+        print(f"\n✅ Results saved to {base_path} folder.")
 
     def print_results(self, results):
         """
@@ -293,11 +360,11 @@ class MLDLIntegrationPipeline:
         results (dict): 평가 결과 딕셔너리
         """
         print("\n" + "="*60)
-        print("📊 모델 성능 비교 결과")
+        print("📊 Model Performance Comparison")
         print("="*60)
 
         for model_name, metrics in results.items():
-            print(f"\n🔹 {model_name.upper()} 모델:")
+            print(f"\n🔹 {model_name.upper()} Model:")
             print(f"  MSE:  {metrics['MSE']:.4f}")
             print(f"  MAE:  {metrics['MAE']:.4f}")
             print(f"  RMSE: {metrics['RMSE']:.4f}")
@@ -321,7 +388,7 @@ class MLDLIntegrationPipeline:
             values = [results[model][metric] for model in models]
 
             bars = axes[i].bar(models, values, alpha=0.7)
-            axes[i].set_title(f'{metric} 비교')
+            axes[i].set_title(f'{metric} Comparison')
             axes[i].set_ylabel(metric)
             axes[i].tick_params(axis='x', rotation=45)
 
@@ -335,53 +402,62 @@ class MLDLIntegrationPipeline:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         plt.show()
 
-        print(f"📈 결과 시각화 저장: {save_path}")
+        print(f"📈 Visualization saved: {save_path}")
 
 def main():
-    """메인 실행 함수"""
-    print("🚀 머신러닝과 딥러닝 통합 파이프라인 시작")
+    """Main execution function"""
+    print("🚀 Starting ML/DL Integration Pipeline")
     print("="*60)
 
-    # 파이프라인 초기화
+    # Initialize pipeline
     pipeline = MLDLIntegrationPipeline()
 
-    # 1. 데이터 생성
-    print("\n📋 1단계: 데이터 생성")
+    # 1. Generate data
+    print("\n📋 Step 1: Data Generation")
     X, y = pipeline.generate_sample_data(n_samples=1000, n_features=5)
 
-    # 2. 데이터 전처리
-    print("\n⚙️ 2단계: 데이터 전처리")
+    # Save data
+    print("\n💾 Saving data...")
+    pipeline.save_data(X, y, base_path='../data/')
+
+    # 2. Preprocess data
+    print("\n⚙️ Step 2: Data Preprocessing")
     X_train, X_test, y_train, y_test = pipeline.preprocess_data(X, y)
 
-    # 검증 데이터 분할
+    # Split validation data
     X_train_split, X_val, y_train_split, y_val = train_test_split(
         X_train, y_train, test_size=0.2, random_state=42
     )
 
-    # 3. 머신러닝 모델 구축
-    print("\n🤖 3단계: 머신러닝 모델 구축")
+    # 3. Build ML models
+    print("\n🤖 Step 3: Building ML Models")
     pipeline.build_ml_models(X_train, y_train)
 
-    # 4. 딥러닝 모델 구축 및 학습
-    print("\n🧠 4단계: 딥러닝 모델 구축 및 학습")
+    # 4. Build and train DL model
+    print("\n🧠 Step 4: Building and Training DL Model")
     pipeline.build_dl_model(X_train.shape[1])
     pipeline.train_dl_model(X_train_split, y_train_split, X_val, y_val, epochs=50)
 
-    # 5. 앙상블 모델 생성
-    print("\n🎯 5단계: 앙상블 모델 생성")
+    # 5. Create ensemble
+    print("\n🎯 Step 5: Creating Ensemble Model")
     pipeline.create_ensemble()
     pipeline.ensemble_model.fit(X_train, y_train)
 
-    # 6. 모델 평가
-    print("\n📊 6단계: 모델 성능 평가")
+    # 6. Evaluate models
+    print("\n📊 Step 6: Model Performance Evaluation")
     results = pipeline.evaluate_models(X_test, y_test)
 
-    # 7. 결과 출력 및 시각화
+    # 7. Display and visualize results
     pipeline.print_results(results)
     pipeline.plot_results(results)
 
-    print("\n✅ 통합 파이프라인 실행 완료!")
-    print("📁 상세 결과는 practice/chapter05/outputs/ 폴더에서 확인하세요.")
+    # 8. Save results
+    print("\n💾 Saving evaluation results...")
+    pipeline.save_results(results, X_test, y_test, base_path='../data/')
+
+    print("\n✅ Integration Pipeline Completed!")
+    print("📁 Generated data saved in: practice/chapter05/data/")
+    print("📁 Visualization saved in: practice/chapter05/outputs/")
 
 if __name__ == "__main__":
     main()

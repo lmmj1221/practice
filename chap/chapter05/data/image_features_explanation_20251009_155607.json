@@ -1,0 +1,37 @@
+{
+  "Satellite/Aerial": {
+    "urban_density": "도시 건물 밀도 (0-1)",
+    "green_space_ratio": "녹지 공간 비율 (0-1)",
+    "construction_activity": "신규 건설 활동 (count)",
+    "road_network_density": "도로망 밀도 (0-1)",
+    "industrial_zones": "산업 지역 비율 (0-1)"
+  },
+  "Field_Photography": {
+    "infrastructure_condition": "인프라 상태 점수 (0-1)",
+    "crowd_density": "인구 밀집도 지수",
+    "traffic_congestion": "교통 혼잡도 (0-1)",
+    "public_facility_usage": "공공시설 이용률 (0-1)",
+    "street_cleanliness": "거리 청결도 (0-1)"
+  },
+  "Social_Indicators": {
+    "housing_quality": "주거 환경 품질 (0-1)",
+    "commercial_activity": "상업 활동 수준 (0-1)",
+    "informal_settlements": "비공식 주거지 비율 (0-1)",
+    "public_space_quality": "공공 공간 품질 (0-1)"
+  },
+  "Disaster_Safety": {
+    "flood_risk_visual": "홍수 위험도 (0-1)",
+    "fire_damage_areas": "화재 피해 지역 수",
+    "landslide_risk": "산사태 위험도 (0-1)",
+    "emergency_response": "응급 대응 시설 커버리지 (0-1)"
+  },
+  "Agricultural_Environmental": {
+    "crop_health_ndvi": "NDVI 작물 건강도 (0-1)",
+    "deforestation_rate": "산림 감소율 (0-1)",
+    "water_body_changes": "수역 변화 (-1 to +1)",
+    "soil_erosion": "토양 침식도 (0-1)"
+  },
+  "CNN_Features": {
+    "cnn_deep_feature_*": "ResNet/EfficientNet 추출 심층 특징"
+  }
+}

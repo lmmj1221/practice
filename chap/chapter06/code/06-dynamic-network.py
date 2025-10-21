@@ -14,8 +14,30 @@ import json
 from datetime import datetime, timedelta
 
 # 한글 폰트 설정
-plt.rcParams['font.family'] = 'Arial'
-plt.rcParams['axes.unicode_minus'] = False
+import matplotlib.font_manager as fm
+
+def setup_korean_font():
+    """한글 폰트를 강제로 설정하는 함수"""
+    korean_fonts = ['Malgun Gothic', 'Microsoft YaHei', 'SimHei', 'NanumGothic', 'AppleGothic']
+    
+    for font_name in korean_fonts:
+        try:
+            font_files = [f.fname for f in fm.fontManager.ttflist if font_name in f.name]
+            if font_files:
+                plt.rcParams['font.family'] = font_name
+                print(f"한글 폰트 설정 성공: {font_name}")
+                break
+        except:
+            continue
+    else:
+        plt.rcParams['font.family'] = 'DejaVu Sans'
+        print("한글 폰트 설정 실패, 기본 폰트 사용")
+    
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['figure.figsize'] = (12, 8)
+    plt.rcParams['font.size'] = 10
+
+setup_korean_font()
 
 class DynamicPolicyNetwork:
     """동적 정책 네트워크 클래스"""

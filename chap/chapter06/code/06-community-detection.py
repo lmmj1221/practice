@@ -18,9 +18,30 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # 한글 폰트 설정
-plt.rcParams['font.family'] = 'Arial Unicode MS'
-plt.rcParams['figure.figsize'] = (12, 8)
-plt.rcParams['axes.unicode_minus'] = False
+import matplotlib.font_manager as fm
+
+def setup_korean_font():
+    """한글 폰트를 강제로 설정하는 함수"""
+    korean_fonts = ['Malgun Gothic', 'Microsoft YaHei', 'SimHei', 'NanumGothic', 'AppleGothic']
+    
+    for font_name in korean_fonts:
+        try:
+            font_files = [f.fname for f in fm.fontManager.ttflist if font_name in f.name]
+            if font_files:
+                plt.rcParams['font.family'] = font_name
+                print(f"한글 폰트 설정 성공: {font_name}")
+                break
+        except:
+            continue
+    else:
+        plt.rcParams['font.family'] = 'DejaVu Sans'
+        print("한글 폰트 설정 실패, 기본 폰트 사용")
+    
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['figure.figsize'] = (12, 8)
+    plt.rcParams['font.size'] = 10
+
+setup_korean_font()
 
 # community 패키지가 없는 경우를 대비한 대안 구현
 try:
@@ -62,9 +83,28 @@ def calculate_modularity(G, partition):
     Returns:
         float: 모듈러리티 값
     """
-    return nx.community.modularity(G, [set(nodes for nodes, comm_id in partition.items()
-                                          if comm_id == i)
-                                      for i in set(partition.values())])
+    try:
+        # 파티션을 커뮤니티 리스트로 변환
+        communities = []
+        for comm_id in set(partition.values()):
+            community = set(node for node, c_id in partition.items() if c_id == comm_id)
+            if community:  # 빈 커뮤니티 제외
+                communities.append(community)
+        
+        # 모든 노드가 포함되었는지 확인
+        all_nodes_in_partition = set()
+        for community in communities:
+            all_nodes_in_partition.update(community)
+        
+        # 그래프에 있지만 파티션에 없는 노드들을 개별 커뮤니티로 추가
+        missing_nodes = set(G.nodes()) - all_nodes_in_partition
+        for node in missing_nodes:
+            communities.append({node})
+        
+        return nx.community.modularity(G, communities)
+    except Exception as e:
+        print(f"모듈러리티 계산 오류: {e}")
+        return 0.0
 
 def detect_policy_coalitions(G):
     """
@@ -338,6 +378,9 @@ def visualize_communities(G, results, save_path=None):
         save_path (str): 저장 경로
     """
     print("\n커뮤니티 시각화 생성 중...")
+    
+    # 한글 폰트 재설정
+    setup_korean_font()
 
     # 최고 모듈러리티를 가진 방법 선택
     best_method = max(results.keys(), key=lambda x: results[x]['modularity'])
@@ -369,9 +412,10 @@ def visualize_communities(G, results, save_path=None):
     # 엣지 그리기
     nx.draw_networkx_edges(G_undirected, pos, alpha=0.5, width=0.5, ax=ax)
 
-    # 라벨 추가
+    # 라벨 추가 (한글 폰트 적용)
     labels = {node: node.replace('부', '').replace('청', '') for node in G_undirected.nodes()}
-    nx.draw_networkx_labels(G_undirected, pos, labels, font_size=8, ax=ax)
+    nx.draw_networkx_labels(G_undirected, pos, labels, font_size=8, ax=ax, 
+                           font_family='Malgun Gothic')
 
     ax.set_title(f'{best_method.title()} 커뮤니티 구조\n'
                 f'(모듈러리티: {best_modularity:.3f})', fontweight='bold')
@@ -530,9 +574,10 @@ def create_community_network_layout(G, partition, save_path=None):
                           edge_color='lightgray',
                           style='dashed')
 
-    # 라벨 추가
+    # 라벨 추가 (한글 폰트 적용)
     labels = {node: node.replace('부', '').replace('청', '') for node in G_undirected.nodes()}
-    nx.draw_networkx_labels(G_undirected, pos, labels, font_size=10, font_weight='bold')
+    nx.draw_networkx_labels(G_undirected, pos, labels, font_size=10, font_weight='bold',
+                           font_family='Malgun Gothic')
 
     # 커뮤니티 라벨 추가
     for i, (comm_id, members) in enumerate(communities.items()):
@@ -696,13 +741,13 @@ def main():
 
     # 5. 시각화
     visualize_communities(gov_network, detection_results,
-                         'practice/chapter06/outputs')
+                         '../outputs')
     create_community_network_layout(gov_network, best_partition,
-                                   'practice/chapter06/outputs')
+                                   '../outputs')
 
     # 6. 결과 내보내기
     export_community_results(detection_results, community_analyses,
-                            policy_themes, 'practice/chapter06/data')
+                            policy_themes, '../data')
 
     print("\n커뮤니티 분석 완료! 결과가 practice/chapter06/ 디렉토리에 저장되었습니다.")
 
