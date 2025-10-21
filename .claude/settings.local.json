@@ -16,7 +16,9 @@
       "Bash(git push:*)",
       "Bash(tree:*)",
       "Bash(timeout 180 python 5-4-explainability.py)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
